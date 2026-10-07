@@ -2,8 +2,7 @@
 #
 # i.MX Yocto Project Build Environment Setup Script
 #
-# Copyright (C) 2011-2016 Freescale Semiconductor
-# Copyright 2017, 2019-2024 NXP
+# Copyright (C) 2026 CALIXTO SYSTEMS PVT LTD
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,7 +31,7 @@ exit_message ()
 
 usage()
 {
-    echo -e "\nUsage: source imx-setup-release.sh
+    echo -e "\nUsage: source calixto-setup-release.sh
     Optional parameters: [-b build-dir] [-h]"
 echo "
     * [-b build-dir]: Build directory, if unspecified script uses 'build' as output directory
@@ -104,7 +103,7 @@ fi
 
 if [ -z "$MACHINE" ]; then
     echo setting to default machine
-    MACHINE='imx6qpsabresd'
+    MACHINE='imx8mp-calixto-optima_2gb'
 fi
 
 case $MACHINE in
@@ -163,6 +162,12 @@ fi
 META_FSL_BSP_RELEASE="${CWD}/sources/meta-imx/meta-imx-bsp"
 
 echo "" >> $BUILD_DIR/conf/bblayers.conf
+
+
+echo "# Calixto Yocto Project Release Layers" >> $BUILD_DIR/conf/bblayers.conf
+echo "BBLAYERS += \"\${BSPDIR}/sources/meta-calixto-nxp\"" >> conf/bblayers.conf
+echo "" >> $BUILD_DIR/conf/bblayers.conf
+
 echo "# i.MX Yocto Project Release layers" >> $BUILD_DIR/conf/bblayers.conf
 hook_in_layer meta-imx/meta-imx-bsp
 hook_in_layer meta-imx/meta-imx-sdk
